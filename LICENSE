@@ -1,19 +1,21 @@
-MIT License (applies to the files in this plugin folder only)
+MIT License
 
-Copyright (c) 2026 Kurtis Alexander
+Copyright (c) 2026 Moose Tracker contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of the files in this plugin folder (the manifest, the skill text, the
-MCP connection file and the README) (the "Plugin Files"), to deal in the Plugin Files without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Plugin Files, and to permit persons
-to whom the Plugin Files are furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Plugin Files.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE PLUGIN FILES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE PLUGIN FILES OR THE
-USE OR OTHER DEALINGS IN THE PLUGIN FILES.
-
-The Moose Tracker service and web app are proprietary and governed by https://moosetracker.app/terms.html.
-The Moose Tracker name and logo (including the files in assets/) are not licensed by this file. They may be used only to identify this plugin and the
-service, as described in the Terms.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

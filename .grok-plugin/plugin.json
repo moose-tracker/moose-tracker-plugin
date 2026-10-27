@@ -1,7 +1,7 @@
 {
   "name": "moose-tracker",
   "version": "1.0.0",
-  "description": "Moose Tracker is a retro synthesizer and music tracker. Describe a song and your assistant writes it as notes; Moose Tracker's own synthesizer and drum kits play it. Get a link that plays the song in your browser, or a downloadable audio file. No sign-in; we do not keep your song text.",
+  "description": "Moose Tracker is a retro synthesizer and music tracker. Describe a song and your assistant writes it as notes; Moose Tracker's own synthesizer and drum kits play it. Get a link that plays the song in your browser, or a downloadable audio file (Ogg Vorbis or WAV). No sign-in; we do not keep your song text.",
   "author": { "name": "Kurtis Alexander", "url": "https://moosetracker.app" },
   "homepage": "https://moosetracker.app/about.html",
   "license": "MIT",
