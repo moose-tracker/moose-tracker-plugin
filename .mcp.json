@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "moose-tracker": {
+      "type": "http",
+      "url": "https://mcp.moosetracker.app/mcp"
+    }
+  }
+}

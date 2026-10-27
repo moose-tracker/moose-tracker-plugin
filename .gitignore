@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+secrets/
+.env*
+render-hmac.txt
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+.DS_Store
