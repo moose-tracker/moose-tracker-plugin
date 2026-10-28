@@ -1,7 +1,7 @@
 {
   "name": "moose-tracker",
-  "version": "1.1.0",
-  "description": "Moose Tracker is a retro synthesizer and music tracker. Your assistant writes sound effects and songs as notes; Moose Tracker's own synthesizer and drum kits play them. Get WAV sound effects, Ogg Vorbis or WAV songs (with seamless loop points), or a link that plays the song in your browser. No sign-in; we do not keep your song text.",
+  "version": "1.1.1",
+  "description": "Moose Tracker gives your assistant a real synthesizer and music tracker, not an AI music generator. Your assistant writes notes in a compact text format and Moose Tracker's engine plays them: analog-style and FM synthesis, samples and drum kits, envelopes, filters and effects. It can design its own sounds and compose full songs, and a free, rule-based scorecard (key, sections, length, genre fit across 99 genres, harsh-tone warnings) checks a draft before rendering, so the assistant spends fewer tokens judging its own work. Get WAV sound effects for games and apps (original clicks, taps, toggles, notifications and haptic-friendly UI sounds), Ogg or WAV songs that play once or loop seamlessly, stems, or a browser link. No sign-in; we do not keep your song text.",
   "author": {
     "name": "Kurtis Alexander",
     "url": "https://moosetracker.app"
