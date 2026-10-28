@@ -1,12 +1,14 @@
 # Moose Tracker plugin
 
-Make game sound effects and retro synth songs by describing them. Your assistant writes the notes; **Moose Tracker's own synthesizer** plays them. Moose Tracker is a retro synthesizer and music tracker, **not an AI music model**.
+Make game and app sound effects (original clicks, taps, toggles, notifications and short haptic-friendly UI sounds) and retro synth songs by describing them. Your assistant writes the notes; **Moose Tracker's own synthesizer** plays them. Moose Tracker is a retro synthesizer and music tracker, **not an AI music model**.
 
 **What you get (five tools)**
 - `describe`: a short index of the song format, styles, sound-effect recipes, instrument presets, limits and examples.
 - `sfx`: up to 16 sound effects per call as WAV files (28 recipes, or your own notes).
 - `song`: checks a song and returns its length, tracks, cues, loop and warnings, plus a link that plays it in your browser. No audio is made.
-- `render`: a song as Ogg Vorbis (default) or WAV, up to 3 minutes, with seamless-loop points, cues and stems.
+- `render`: a song as Ogg Vorbis (default) or WAV, up to 3 minutes, with cues and stems; seamless-loop points are reported only when `loop:true` is set.
+
+Songs can be one-shot pieces (no loop needed); looping is optional. `sfx` also suits app UI sounds: clicks, taps, toggles and notifications.
 - `convert`: moves a song between MTL text, a `.mtk` project file and a share link.
 
 **Network and data (for reviewers)**
