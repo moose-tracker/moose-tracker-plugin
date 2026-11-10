@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // © 2026 Kurtis Alexander. MIT License.
 // Tiny stdio-to-remote MCP bridge. No engine code, no secrets. Forwards JSON-RPC
-// between a local MCP client (Content-Length stdio) and the live Streamable HTTP server.
+// between a local MCP client and the live Streamable HTTP server. Stdio is newline-delimited JSON (the MCP
+// stdio transport); Content-Length framed input is still accepted and answered in the same framing.
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,9 +20,11 @@ function argUrl() {
 
 const url = argUrl();
 let sessionId = null;
+let framing = "line";   // "line" (MCP stdio) or "header" (Content-Length), set by the client's first message
 
 function writeMessage(obj) {
-  const json = JSON.stringify(obj);
+  const json = JSON.stringify(obj);   // JSON.stringify never emits a raw newline, so one message is one line
+  if (framing === "line") { stdout.write(json + "\n"); return; }
   const body = Buffer.from(json, "utf8");
   stdout.write(`Content-Length: ${body.length}\r\n\r\n`);
   stdout.write(body);
@@ -52,6 +55,7 @@ async function forward(msg) {
   const sid = res.headers.get("mcp-session-id");
   if (sid) sessionId = sid;
   const text = await res.text();
+  if (msg.id === undefined) return [];   // a notification never gets a reply (JSON-RPC 2.0)
   if (res.status === 204 || text.trim() === "") {
     if (msg.id === undefined) return []; // notification
     return [{ jsonrpc: "2.0", id: msg.id, error: { code: -32000, message: `empty reply from ${url} (HTTP ${res.status})` } }];
@@ -78,26 +82,38 @@ async function onMessage(msg) {
 }
 
 let buf = Buffer.alloc(0);
+function handleJson(text) {
+  let msg;
+  try { msg = JSON.parse(text); } catch {
+    writeMessage({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "parse error" } });
+    return;
+  }
+  onMessage(msg);
+}
 stdin.on("data", chunk => {
   buf = Buffer.concat([buf, chunk]);
   for (;;) {
-    const headerEnd = buf.indexOf("\r\n\r\n") >= 0 ? buf.indexOf("\r\n\r\n") : buf.indexOf("\n\n");
-    const sepLen = buf.indexOf("\r\n\r\n") >= 0 ? 4 : (buf.indexOf("\n\n") >= 0 ? 2 : 0);
-    if (headerEnd < 0) break;
-    const header = buf.subarray(0, headerEnd).toString("utf8");
-    const m = /content-length:\s*(\d+)/i.exec(header);
-    if (!m) { buf = buf.subarray(headerEnd + sepLen); continue; }
-    const len = Number(m[1]);
-    const start = headerEnd + sepLen;
-    if (buf.length < start + len) break;
-    const json = buf.subarray(start, start + len).toString("utf8");
-    buf = buf.subarray(start + len);
-    let msg;
-    try { msg = JSON.parse(json); } catch (e) {
-      writeMessage({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "parse error" } });
+    const head = buf.subarray(0, 32).toString("utf8").replace(/^\s+/, "");
+    if (/^content-length\s*:/i.test(head)) {   // Content-Length framed (older clients)
+      framing = "header";
+      const crlf = buf.indexOf("\r\n\r\n"), lf = buf.indexOf("\n\n");
+      const headerEnd = crlf >= 0 ? crlf : lf, sepLen = crlf >= 0 ? 4 : 2;
+      if (headerEnd < 0) break;
+      const m = /content-length:\s*(\d+)/i.exec(buf.subarray(0, headerEnd).toString("utf8"));
+      const start = headerEnd + sepLen;
+      if (!m) { buf = buf.subarray(start); continue; }
+      const len = Number(m[1]);
+      if (buf.length < start + len) break;
+      const json = buf.subarray(start, start + len).toString("utf8");
+      buf = buf.subarray(start + len);
+      handleJson(json);
       continue;
     }
-    onMessage(msg);
+    const nl = buf.indexOf("\n");   // newline-delimited JSON (the MCP stdio transport)
+    if (nl < 0) break;
+    const line = buf.subarray(0, nl).toString("utf8").replace(/\r$/, "");
+    buf = buf.subarray(nl + 1);
+    if (line.trim()) { framing = "line"; handleJson(line); }
   }
 });
 stdin.on("end", () => process.exit(0));

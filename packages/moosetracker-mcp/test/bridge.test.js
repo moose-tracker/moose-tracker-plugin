@@ -55,6 +55,7 @@ function startMock() {
     req.on("data", c => { raw += c; });
     req.on("end", () => {
       const msg = JSON.parse(raw || "{}");
+      if (msg.id === undefined) { res.statusCode = 202; res.end(); return; }   // notifications: accepted, no body (as the live server does)
       res.setHeader("content-type", "application/json");
       if (msg.method === "initialize") {
         res.end(JSON.stringify({ jsonrpc: "2.0", id: msg.id, result: { protocolVersion: "2024-11-05", capabilities: {}, serverInfo: { name: "moose-tracker", version: pkg.version } } }));
@@ -103,6 +104,42 @@ test("a local MCP client lists the tools through the bridge", async () => {
     const list = await readRpc(child);
     const names = (list.result.tools || []).map(t => t.name);
     assert.deepEqual(names, ["describe", "sfx", "song", "render", "convert", "assets", "feedback", "research_composition"]);
+  } finally {
+    child.kill();
+    mock.server.close();
+  }
+});
+
+// The MCP stdio transport: one JSON-RPC message per line, no headers (what Claude Desktop, Cursor, Continue... send).
+function writeLine(child, obj) { child.stdin.write(JSON.stringify(obj) + "\n"); }
+function readLine(child, timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    let buf = "";
+    const t = setTimeout(() => reject(new Error("timeout waiting for a newline-delimited MCP reply")), timeoutMs);
+    const onData = chunk => {
+      buf += chunk.toString("utf8");
+      const i = buf.indexOf("\n"); if (i < 0) return;
+      clearTimeout(t); child.stdout.off("data", onData);
+      const line = buf.slice(0, i);
+      assert.ok(!/^content-length/i.test(line), "reply must be a JSON line, not Content-Length framed");
+      resolve(JSON.parse(line));
+    };
+    child.stdout.on("data", onData);
+  });
+}
+
+test("an MCP stdio client (newline-delimited JSON) gets newline-delimited replies", async () => {
+  const mock = await startMock();
+  const child = spawn(process.execPath, [bin, "--url", mock.url], { stdio: ["pipe", "pipe", "pipe"] });
+  try {
+    writeLine(child, { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18", capabilities: {}, clientInfo: { name: "gate", version: "0" } } });
+    const init = await readLine(child);
+    assert.equal(init.result.serverInfo.name, "moose-tracker");
+    writeLine(child, { jsonrpc: "2.0", method: "notifications/initialized" });
+    writeLine(child, { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} });
+    const list = await readLine(child);
+    assert.equal(list.id, 2);
+    assert.equal((list.result.tools || []).length, 8);
   } finally {
     child.kill();
     mock.server.close();
