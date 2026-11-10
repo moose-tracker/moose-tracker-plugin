@@ -1,0 +1,36 @@
+# Trusted publishing for moosetracker-mcp (OIDC + automatic provenance).
+# No NPM_TOKEN. Do not run npm publish or npm trust from a developer machine.
+# After this workflow is on the default branch, a package owner runs once:
+#   npm trust github moosetracker-mcp --file npm-publish.yml --repo moose-tracker/moose-tracker-plugin --allow-publish
+# Then publish with a GitHub Release or a manual workflow_dispatch (not on every push).
+name: npm-publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: packages/moosetracker-mcp
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+      - name: Update npm CLI
+        run: npm install --global "npm@^11.5.1"
+      - run: npm test
+      - run: npm pack --dry-run
+      - run: npm publish --access public
