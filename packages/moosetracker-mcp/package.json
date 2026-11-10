@@ -1,0 +1,42 @@
+{
+  "name": "moosetracker-mcp",
+  "version": "1.2.9",
+  "description": "A retro synthesizer and music tracker MCP server: your assistant writes sound effects and songs as notes, and Moose Tracker plays them. Share links play in the browser; render and sfx produce files to embed.",
+  "license": "MIT",
+  "author": {
+    "name": "Kurtis Alexander",
+    "email": "moose@moosetracker.app"
+  },
+  "homepage": "https://moosetracker.app/ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moose-tracker/moose-tracker-plugin.git"
+  },
+  "bugs": {
+    "url": "https://moosetracker.app/about.html"
+  },
+  "type": "module",
+  "bin": {
+    "moosetracker-mcp": "bin/moosetracker-mcp.js"
+  },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "pack:check": "npm pack --dry-run"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "moose-tracker",
+    "music",
+    "stdio"
+  ],
+  "dependencies": {}
+}
