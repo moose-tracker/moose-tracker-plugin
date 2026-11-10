@@ -50,7 +50,7 @@ Contact: moose@moosetracker.app. © 2026 Kurtis Alexander. Terms: https://mooset
 
 ## Polyphony
 
-Polyphonic instruments (piano, harp, guitar, pads, chords on any ringing sound): the note-list path is the default. song(layers:{notes:[{ch, ins, notes:[[pitch, startBeat, beats, vel]]}]}) sends the notes to the engine's placeNotes, the allocator the piano roll uses: each note goes to a free sub-channel of ch (up to 16), and the reply lists where each note landed plus any warnings (over 16, collisions). Manual lanes (ch 3b) give exact control.
+Polyphonic instruments (piano, harp, guitar, pads, chords on any ringing sound): the note-list path is the default. song(layers:{notes:[{ch, ins, notes:[[pitch, startBeat, beats, vel]]}]}) (vel 0-64, the same scale as vNN) sends the notes to the engine's placeNotes, the allocator the piano roll uses: each note goes to a free sub-channel of ch (up to 16), and the reply lists where each note landed plus any warnings (over 16, collisions). Manual lanes (ch 3b) give exact control.
 
 ## Analysis stages
 
