@@ -1,7 +1,7 @@
 {
   "name": "moosetracker-mcp",
-  "version": "1.2.10",
-  "description": "A retro synthesizer and music tracker MCP server: your assistant writes sound effects and songs as notes, and Moose Tracker plays them. Share links play in the browser; render and sfx produce files to embed.",
+  "version": "1.2.15",
+  "description": "A synthesizer, sampler and music tracker MCP server, with a library of real sampled instruments: your assistant writes sound effects and songs as notes, and Moose Tracker plays them. Share links play in the browser; render and sfx produce files to embed.",
   "license": "MIT",
   "author": {
     "name": "Kurtis Alexander",
