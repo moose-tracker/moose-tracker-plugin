@@ -1,0 +1,23 @@
+{
+  "name": "moose-tracker",
+  "displayName": "Moose Tracker",
+  "version": "1.2.15",
+  "description": "A synthesizer, sampler and music tracker MCP server, with a library of real sampled instruments: your assistant writes sound effects and songs as notes, and Moose Tracker plays them. Share links play in the browser; render and sfx produce files to embed.",
+  "author": {
+    "name": "Kurtis Alexander",
+    "email": "moose@moosetracker.app",
+    "url": "https://moosetracker.app/"
+  },
+  "homepage": "https://moosetracker.app/ai",
+  "privacyPolicyUrl": "https://moosetracker.app/privacy.html",
+  "repository": "https://github.com/moose-tracker/moose-tracker-plugin",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "music",
+    "synth",
+    "sampler",
+    "tracker",
+    "sound-effects"
+  ]
+}
