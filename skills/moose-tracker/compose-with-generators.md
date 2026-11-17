@@ -28,7 +28,7 @@ song { compose: {
 
 `song` returns the plan: bars, seconds, chord map, parts with their track numbers, groove and the loop join (`G → C (V → I)` with `loop:true`). Send `return:"mtl"` for the compiled song, or `compose.inspect:{part:"bass", bars:[1,2]}` for one part's rows. Fix the spec, not the compiled text: the compiled song is regenerated on every call and nothing is stored.
 
-`render` takes the same `compose` plus the usual `format` (wav default, ogg, opus), `loop`, `len`, `stems`.
+`render` takes the same `compose` plus the usual `format` (wav default, ogg, opus), `loop`, `len`, `stems`, `adaptive`.
 
 ## Notes
 
