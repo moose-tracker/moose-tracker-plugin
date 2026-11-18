@@ -39,6 +39,6 @@ You can also run `npx -y moosetracker-mcp`.
 
 Call `describe` with no arguments first. The live server exposes eight tools: `describe`, `sfx`, `research_composition`, `song`, `render`, `convert`, `assets`, and `feedback`.
 
-`research_composition` looks up composition, arranging and mixing guidance. `song` checks and analyzes a song and returns a share link that plays in the browser. `render` and `sfx` produce audio files (WAV, Ogg Vorbis or Opus) to embed.
+`research_composition` looks up composition, arranging and mixing guidance, and with `q` a music-theory guide for melody, harmony and arrangement. `song` checks and analyzes a song and returns a share link that plays in the browser. `render` and `sfx` produce audio files (WAV, Ogg Vorbis or Opus) to embed.
 
 More detail: https://moosetracker.app/ai
