@@ -55,7 +55,7 @@ Polyphonic instruments (piano, harp, guitar, pads, chords on any ringing sound):
 
 ## Analysis stages
 
-Stages: plan, write, light analysis loop, one deep analysis, fix; then the share link to listen, or one render to embed.
+Stages: plan, write, light analysis loop, one deep analysis, fix; then the share link to listen; one render only when the user asks for an audio file.
 
 - Light analysis, song(analyze:true): no audio, instant, free. Suited to every edit while writing. Each light reply ends with a next step: fix the flagged items, or deep analysis when light analysis is clean.
 - Deep analysis, song(analyze:true, deep:true): an analysis-only render with no audio file. Suited to once or twice when the song is nearly done, and to compare versions. Counts half the song's seconds against the render quota. Each deep reply ends with a next step: fix the flagged items, or keep the song as it is (the share link plays it; render produces files for embedding).
