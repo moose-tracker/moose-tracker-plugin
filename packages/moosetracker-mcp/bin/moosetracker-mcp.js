@@ -7,6 +7,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { stdin, stdout, stderr } from "node:process";
+import { isLocalPhoto, photoLocally } from "./omr-local.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(here, "../package.json"), "utf8"));
@@ -70,7 +71,8 @@ async function forward(msg) {
 
 async function onMessage(msg) {
   try {
-    const replies = await forward(msg);
+    // KUR-333: a sheet-music photo given as a path, base64 or upload job is read here with homr (the user's own uv), then imported by the server
+    const replies = isLocalPhoto(msg) ? [await photoLocally(msg, forward)] : await forward(msg);
     for (const r of replies) writeMessage(r);
   } catch (e) {
     if (msg && msg.id !== undefined) {
